@@ -17,27 +17,8 @@ const upload = multer({
 router.post(
   "/",
   verifyToken,
-  [
-    body("name").notEmpty().withMessage("Name is Required"),
-    body("city").notEmpty().withMessage("City is required"),
-    body("country").notEmpty().withMessage("Country is required"),
-    body("description").notEmpty().withMessage("Description is required"),
-    body("type").notEmpty().withMessage("Hotel type is required"),
-    body("pricePerNight")
-      .notEmpty()
-      .isNumeric()
-      .withMessage("City is required"),
-    body("facilities")
-      .notEmpty()
-      .isArray()
-      .withMessage("Facilities is required"),
-  ],
   upload.array("imageFiles", 6),
   async (req: Request, res: Response):Promise<any> => {
-    // const error = validationResult(req);
-    // if (!error.isEmpty()) {
-    //     return res.status(400).json({ message: error.array() });
-    // }
     try {
       const imageFiles = req.files as Express.Multer.File[];
       const newHotel: HotelType = req.body;
