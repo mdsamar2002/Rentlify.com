@@ -45,6 +45,6 @@ app.use("/api/user", userRoutes);
 app.use("/api/user", authRoutes);
 app.use("/api/my-hotels",hotelRoute)
 
-app.get("*",(req:Request,res:Response)=>{
-   res.sendFile(path.join(__dirname, "../../client/dist/index.html"))
-})
+// app.get("*",(req:Request,res:Response)=>{
+//    res.sendFile(path.join(__dirname, "../../client/dist/index.html"))
+// })
