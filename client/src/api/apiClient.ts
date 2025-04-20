@@ -30,7 +30,6 @@ export const signIn = async (formData: SignInForm) => {
   });
 
   const responseBody = await response.json();
-   console.log(responseBody)
   if (!response.ok) {
     throw new Error(responseBody.message);
   }
@@ -56,4 +55,16 @@ export const signOut = async () => {
   if(!response.ok){
     throw new Error("Error during logout");
   }
+}
+
+export const addHotel = async (hotelFormData : FormData)=>{
+   const response = await fetch(`${BASE_URL}/api/my-hotels`,{
+    method : "POST",
+    credentials:"include",
+    body:hotelFormData,
+   });
+   if(!response.ok){
+    throw new Error ("Failed to add hotel")
+   }
+   return response.json();
 }

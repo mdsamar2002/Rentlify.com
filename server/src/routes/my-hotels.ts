@@ -33,11 +33,11 @@ router.post(
       .withMessage("Facilities is required"),
   ],
   upload.array("imageFiles", 6),
-  async (req: Request, res: Response) => {
-    const error = validationResult(req);
-    if (!error.isEmpty()) {
-      res.status(400).json({ message: error.array() });
-    }
+  async (req: Request, res: Response):Promise<any> => {
+    // const error = validationResult(req);
+    // if (!error.isEmpty()) {
+    //     return res.status(400).json({ message: error.array() });
+    // }
     try {
       const imageFiles = req.files as Express.Multer.File[];
       const newHotel: HotelType = req.body;
@@ -56,10 +56,10 @@ router.post(
 
       const hotel = new Hotel(newHotel);
       await hotel.save();
-      res.status(201).send(hotel);
+      return res.status(201).send(hotel);
     } catch (error) {
       console.log("error at creating hotels", error);
-      res.status(500).json({ message: "something went wrong" });
+      return res.status(500).json({ message: "something went wrong" });
     }
   }
 );

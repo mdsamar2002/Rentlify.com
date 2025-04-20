@@ -1,4 +1,4 @@
-import express from "express";
+import express ,{Request ,Response} from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import dbConnect from "./db/db.js";
@@ -45,4 +45,6 @@ app.use("/api/user", userRoutes);
 app.use("/api/user", authRoutes);
 app.use("/api/my-hotels",hotelRoute)
 
-
+app.get("*",(req:Request,res:Response)=>{
+   res.sendFile(path.join(__dirname, "../../client/dist/index.html"))
+})

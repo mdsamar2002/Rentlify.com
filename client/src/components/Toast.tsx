@@ -6,7 +6,7 @@ type ToastProps = {
   onClose : () => void;
 };
 
-const Toast = ({ message, type ,onClose }: ToastProps) => {
+const Toast = ({ message, type , onClose }: ToastProps) => {
    useEffect (() =>{
     const timer = setTimeout(()=>{
       onClose();
@@ -17,8 +17,8 @@ const Toast = ({ message, type ,onClose }: ToastProps) => {
    },[onClose]) 
   const style =
     type === "SUCCESS"
-      ? "fixed top-20 right-4 z-50 rounded-md bg-stone-800 text-white max-w-md px-4 py-2"
-      : "fixed top-20 right-4 z-50 rounded-md bg-red-800 text-white max-w-md px-4 py-2";
+      ? "fixed top-4 right-4 z-50 rounded-md bg-stone-800 text-white max-w-md px-4 py-2"
+      : "fixed top-4 right-4 z-50 rounded-md bg-red-800 text-white max-w-md px-4 py-2";
 
   return (
     <div className={style}>
