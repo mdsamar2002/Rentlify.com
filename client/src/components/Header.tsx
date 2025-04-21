@@ -13,9 +13,8 @@ const Header = () => {
         <span className="flex space-x-2">
           {isLoggedIn ? (
             <div className="flex justify-between items-center gap-2">
-              <Link to="/my-booking" className="flex items-center px-3 text-stone-800 font-bold border rounded-sm hover:bg-gray-100 bg-white hover:shadow-xl hover:border-stone-900">My Booking</Link>
-              <Link to="/my-hotels" className="flex items-center px-3 text-stone-800 font-bold border rounded-sm hover:bg-gray-100 bg-white hover:shadow-xl hover:border-stone-900">My Hotels</Link>
-              <Link to="/add-hotel" className="flex items-center px-3 text-stone-800 font-bold border rounded-sm hover:bg-gray-100 bg-white hover:shadow-xl hover:border-stone-900">Add Hotels</Link>
+              <Link to="/my-booking" className="flex items-center px-4 py-2 text-stone-800 font-bold  rounded-sm hover:bg-gray-100 hover:shadow-xl hover:border-stone-900">My Booking</Link>
+              <Link to="/my-hotel" className="flex items-center px-4 py-2 text-stone-800 font-bold rounded-sm hover:bg-gray-100  hover:shadow-xl hover:border-stone-900">My Hotels</Link>
               <SignOut/> 
             </div>
           ) : (

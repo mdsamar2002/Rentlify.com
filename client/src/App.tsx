@@ -1,17 +1,17 @@
 import "./index.css";
-import {Navigate, Route, Routes } from "react-router";
+import { Navigate, Route, Routes } from "react-router";
 import Layout from "./layout/Layout";
 import Register from "./pages/Register";
 import SignIn from "./pages/SignIn";
 import AddHotel from "./pages/AddHotel";
 import { useAppContext } from "./contexts/AppContext";
+import MyHotels from "./pages/MyHotels";
 
 function App() {
-  const {isLoggedIn} = useAppContext()
+  const { isLoggedIn } = useAppContext();
   return (
     <>
-    
-     <Routes>
+      <Routes>
         <Route path="*" element={<Navigate to="/" />} />
         <Route
           path="/"
@@ -39,16 +39,26 @@ function App() {
           }
         />
 
-        {isLoggedIn && <>
-         <Route 
-          path="/add-hotel"
-          element = {
-            <Layout>
-              <AddHotel/>
-            </Layout>
-          }
-         />
-        </>}
+        {isLoggedIn && (
+          <>
+            <Route
+              path="/add-hotel"
+              element={
+                <Layout>
+                  <AddHotel />
+                </Layout>
+              }
+            />
+            <Route
+              path="/my-hotel"
+              element={
+                <Layout>
+                  <MyHotels />
+                </Layout>
+              }
+            />
+          </>
+        )}
       </Routes>
     </>
   );

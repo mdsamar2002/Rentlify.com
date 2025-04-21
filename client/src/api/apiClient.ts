@@ -1,5 +1,6 @@
 import { Registerform } from "../pages/Register";
 import { SignInForm } from "../pages/SignIn";
+import {HotelType} from "../../../server/src/typeShared/type.js"
 
 const BASE_URL = import.meta.env.VITE_BASE_URL || "";
 
@@ -67,4 +68,15 @@ export const addHotel = async (hotelFormData : FormData)=>{
     throw new Error ("Failed to add hotel")
    }
    return response.json();
+}
+
+export const fetchHotelDetails = async() :Promise<HotelType[]> =>{
+  const response = await fetch(`${BASE_URL}/api/add-hotel`,{
+    credentials:"include",
+    method:"GET"
+  })
+  if(!response.ok){
+    throw new Error("Error while fetching hotel details");
+  }
+  return response.json();
 }
