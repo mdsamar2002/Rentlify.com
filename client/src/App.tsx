@@ -18,7 +18,7 @@ function App() {
           path="/"
           element={
             <Layout>
-              <p>homepage</p>
+              <p>Hotel Home page</p>
             </Layout>
           }
         />
