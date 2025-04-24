@@ -9,6 +9,7 @@ import path from "path";
 import { fileURLToPath } from 'url';
 import { v2 as cloudinary } from "cloudinary";
 import hotelRoute from "./routes/my-hotels.js"
+import hotelSearchRoute from "./routes/hotel.js"
 dotenv.config({});
 const app = express();
 
@@ -43,5 +44,6 @@ app.use(cookieParser());
 
 app.use("/api/user", userRoutes);
 app.use("/api/user", authRoutes);
-app.use("/api/add-hotel",hotelRoute)
+app.use("/api/add-hotel",hotelRoute);
+app.use("/api/hotels",hotelSearchRoute);
 

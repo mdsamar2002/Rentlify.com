@@ -3,8 +3,7 @@ import { Link } from "react-router";
 import * as apiClient from "../api/apiClient";
 import { useAppContext } from "../contexts/AppContext";
 import { BsBuilding, BsMap} from "react-icons/bs";
-import { GiMoneyStack } from "react-icons/gi";
-import { BiSolidHotel, BiStar } from "react-icons/bi";
+import { BiSolidHotel, BiStar,BiMoney } from "react-icons/bi";
 
 const MyHotels = () => {
   const { showToast } = useAppContext();
@@ -28,9 +27,6 @@ const MyHotels = () => {
       </span>
     );
   }
-  
-  console.log(hotelData);
-  console.log(typeof(hotelData));
   return (
     <div className="space-y-5">
       <span className="flex justify-between">
@@ -46,19 +42,19 @@ const MyHotels = () => {
         {hotelData?.map((hotel, index) => (
           <div key={index} className="flex flex-col justify-between border p-4 rounded shadow gap-5">
                 <h2 className="text-2xl font-bold">{hotel.name}</h2>
-                <div className="whitespace-pre-line">{hotel.description}</div>
+                <div className="whitespace-pre-line border border-slate-200 p-2">{hotel.description}</div>
                 <div className="grid grid-cols-5 gap-2">
-                  <div className="border border-slate-300 rounded-sm p-3 flex items-center">
+                  <div className="border border-slate-300 rounded-sm p-3 flex items-center justify-between">
                      <BsMap className="text-2xl mr-2"/>
                      {hotel.city},{hotel.country}
                   </div>
-                  <div className="border border-slate-300 rounded-sm p-3 flex items-center">
+                  <div className="border border-slate-300 rounded-sm p-3 flex items-center justify-between">
                      <BsBuilding className="text-2xl mr-2"/>
                      {hotel.type}
                   </div>
-                  <div className="border border-slate-300 rounded-sm p-3 flex items-center">
-                  <GiMoneyStack className="text-2xl mr-2"/>
-                     {hotel.pricePerNight} per night
+                  <div className="border border-slate-300 rounded-sm p-3 flex items-center justify-between">
+                  <BiMoney className="text-2xl mr-2"/>
+                     ₹{hotel.pricePerNight} /24hr
                   </div>
 
                   <div className="border border-slate-300 rounded-sm p-3 flex items-center justify-between">
@@ -71,7 +67,7 @@ const MyHotels = () => {
                   </div>
                 </div>
                 <span  className="flex justify-end">
-                  <Link to={`/edit-hotel/${hotel._id}`} className="bg-stone-500 text-white p-2 font-bold hover:bg-stone-400 text-xl rounded-sm">View Details</Link>
+                  <Link to={`/edit-hotel/${hotel._id}`} className="bg-stone-500 text-white p-2 font-bold hover:bg-stone-400 text-xl rounded-sm">Edit Details</Link>
                 </span>
           </div>
         ))}
