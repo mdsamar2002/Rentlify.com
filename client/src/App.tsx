@@ -8,6 +8,7 @@ import { useAppContext } from "./contexts/AppContext";
 import MyHotels from "./pages/MyHotels";
 import EditHotel from "./pages/EditHotel";
 import Search from "./pages/Search";
+import HotelDetails from "./pages/HotelDetails";
 function App() {
   const { isLoggedIn } = useAppContext();
   return (
@@ -42,12 +43,19 @@ function App() {
           path="/search"
           element={
             <Layout>
-              <Search/>
+              <Search />
             </Layout>
           }
         />
-
-        {isLoggedIn && (
+        <Route
+          path="/detail/:hotelId"
+          element={
+            <Layout>
+              <HotelDetails />
+            </Layout>
+          }
+        />
+       {isLoggedIn && (
           <>
             <Route
               path="/add-hotel"
@@ -65,7 +73,7 @@ function App() {
                 </Layout>
               }
             />
-             <Route
+            <Route
               path="/edit-hotel/:hotelId"
               element={
                 <Layout>

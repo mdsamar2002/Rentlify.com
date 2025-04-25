@@ -1,39 +1,40 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import * as apiClient from "../api/apiClient";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { useAppContext } from "../contexts/AppContext";
 export type SignInForm = {
   email: string;
   password: string;
 };
 const SignIn = () => {
-  const {showToast} = useAppContext();
+  const { showToast } = useAppContext();
   const queryClient = useQueryClient();
-  const navigate = useNavigate();  
+  const navigate = useNavigate();
+  const location = useLocation();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<SignInForm>();
 
-   const mutation = useMutation({
-      mutationFn: (data:SignInForm) => apiClient.signIn(data),
-      onSuccess: async() => {
-        showToast({
-          message: "Sign in Successfully",
-          type: "SUCCESS"
-        });
-        await queryClient.invalidateQueries({queryKey:["validateToken"]});
-        navigate('/');
-      },
-      onError : (error:Error) =>{
-      showToast({message:error.message , type:"ERROR"})
-      }
-    });
-    const onSubmit = handleSubmit((data: SignInForm) => {
-        mutation.mutate(data);
+  const mutation = useMutation({
+    mutationFn: (data: SignInForm) => apiClient.signIn(data),
+    onSuccess: async () => {
+      showToast({
+        message: "Sign in Successfully",
+        type: "SUCCESS",
       });
+      await queryClient.invalidateQueries({ queryKey: ["validateToken"] });
+      navigate(location.state?.from?.pathname || "/");
+    },
+    onError: (error: Error) => {
+      showToast({ message: error.message, type: "ERROR" });
+    },
+  });
+  const onSubmit = handleSubmit((data: SignInForm) => {
+    mutation.mutate(data);
+  });
   return (
     <form className="flex flex-col gap-5" onSubmit={onSubmit}>
       <h1 className="text-3xl font-bold">Sign In</h1>
@@ -68,7 +69,13 @@ const SignIn = () => {
       <span className="flex justify-between items-center flex-1">
         <p>
           Dont't have an account ?
-          <Link to="/register" className="pl-1 font-medium hover:font-bold hover:underline"> Register </Link>
+          <Link
+            to="/register"
+            className="pl-1 font-medium hover:font-bold hover:underline"
+          >
+            {" "}
+            Register{" "}
+          </Link>
         </p>
         <button
           type="submit"

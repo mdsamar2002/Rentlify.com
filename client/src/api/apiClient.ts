@@ -1,6 +1,9 @@
 import { Registerform } from "../pages/Register";
 import { SignInForm } from "../pages/SignIn";
-import {HotelSearchResponse, HotelType} from "../../../server/src/typeShared/type.js"
+import {
+  HotelSearchResponse,
+  HotelType,
+} from "../../../server/src/typeShared/type.js";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL || "";
 
@@ -39,7 +42,7 @@ export const signIn = async (formData: SignInForm) => {
 export const validateToken = async () => {
   const response = await fetch(`${BASE_URL}/api/user/validate-token`, {
     credentials: "include",
-    method : "POST"
+    method: "POST",
   });
 
   if (!response.ok) {
@@ -49,100 +52,119 @@ export const validateToken = async () => {
 };
 
 export const signOut = async () => {
-  const response = await fetch(`${BASE_URL}/api/user/logout`,{
-    method:"POST",
-    credentials:"include"
-  })
-  if(!response.ok){
+  const response = await fetch(`${BASE_URL}/api/user/logout`, {
+    method: "POST",
+    credentials: "include",
+  });
+  if (!response.ok) {
     throw new Error("Error during logout");
   }
-}
+};
 
-export const addHotel = async (hotelFormData : FormData)=>{
-   const response = await fetch(`${BASE_URL}/api/add-hotel`,{
-    method : "POST",
-    credentials:"include",
-    body:hotelFormData,
-   });
-   if(!response.ok){
-    throw new Error ("Failed to add hotel")
-   }
-   return response.json();
-}
+export const addHotel = async (hotelFormData: FormData) => {
+  const response = await fetch(`${BASE_URL}/api/add-hotel`, {
+    method: "POST",
+    credentials: "include",
+    body: hotelFormData,
+  });
+  if (!response.ok) {
+    throw new Error("Failed to add hotel");
+  }
+  return response.json();
+};
 
-export const fetchHotelDetails = async() :Promise<HotelType[]> =>{
-  const response = await fetch(`${BASE_URL}/api/add-hotel`,{
-    credentials:"include",
-    method:"GET"
-  })
-  if(!response.ok){
+export const fetchHotelDetails = async (): Promise<HotelType[]> => {
+  const response = await fetch(`${BASE_URL}/api/add-hotel`, {
+    credentials: "include",
+    method: "GET",
+  });
+  if (!response.ok) {
     throw new Error("Error while fetching hotel details");
   }
   return response.json();
-}
+};
 
-export const fetchHotelById = async (hotelId : string):Promise<HotelType> =>{
-  const response = await fetch (`${BASE_URL}/api/add-hotel/${hotelId}`,{
-    credentials:"include",
-  })
-  if(!response.ok){
-    throw new Error ("Error while getting hotel details")
+export const fetchHotelById = async (hotelId: string): Promise<HotelType> => {
+  const response = await fetch(`${BASE_URL}/api/add-hotel/${hotelId}`, {
+    credentials: "include",
+  });
+  if (!response.ok) {
+    throw new Error("Error while getting hotel details");
   }
 
   return response.json();
-}
+};
 
-export const updateMyHotel = async (hotelFormData : FormData)=>{
-    const response = await fetch(`${BASE_URL}/api/add-hotel/${hotelFormData.get("hotelId")}`,{
-      credentials:"include",
-      method : "PUT",
-      body:hotelFormData,
-    })
-   
-    if(!response.ok){
-      throw new Error ("Error while updating hotel detail!")
+export const updateMyHotel = async (hotelFormData: FormData) => {
+  const response = await fetch(
+    `${BASE_URL}/api/add-hotel/${hotelFormData.get("hotelId")}`,
+    {
+      credentials: "include",
+      method: "PUT",
+      body: hotelFormData,
     }
-    
-    return response.json();
-}
+  );
 
-export type SearchParams = {
-  destination : string;
-  checkIn:string;
-  checkOut:string;
-  adultCount:string;
-  childCount:string;
-  page:string;
-  facilities?:string[];
-  types?:string[];
-  stars?:string[];
-  maxPrice?:string;
-  sortOption ? : string;
-}
-
-export const searchHotels = async (searchParams :SearchParams) :Promise <HotelSearchResponse>=>{
-  const queryParams = new URLSearchParams();
-  queryParams.append("destination",searchParams.destination || "");
-  queryParams.append("checkIn",searchParams.checkIn || "");
-  queryParams.append("checkOut",searchParams.checkOut || "");
-  queryParams.append("adultCount",searchParams.adultCount || "");
-  queryParams.append("childCount",searchParams.childCount || "");
-  queryParams.append("page",searchParams.page || "");
-  queryParams.append("maxPrice",searchParams.maxPrice || "");
-  queryParams.append("sortOption",searchParams.sortOption || "");
-
-  searchParams.facilities?.forEach((facility)=> queryParams.append("facilities",facility))
-  searchParams.types?.forEach((type)=>queryParams.append("types",type));
-  searchParams.stars?.forEach((star)=>queryParams.append("stars",star))
-
-  const response = await fetch(`${BASE_URL}/api/hotels/search?${queryParams}`,{
-    credentials:"include"
-  })
-
-  if(!response.ok){
-  throw new Error("Error while hotel search")
+  if (!response.ok) {
+    throw new Error("Error while updating hotel detail!");
   }
 
-  return response.json()
+  return response.json();
+};
 
-}
+export type SearchParams = {
+  destination: string;
+  checkIn: string;
+  checkOut: string;
+  adultCount: string;
+  childCount: string;
+  page: string;
+  facilities?: string[];
+  types?: string[];
+  stars?: string[];
+  maxPrice?: string;
+  sortOption?: string;
+};
+
+export const searchHotels = async (
+  searchParams: SearchParams
+): Promise<HotelSearchResponse> => {
+  const queryParams = new URLSearchParams();
+  queryParams.append("destination", searchParams.destination || "");
+  queryParams.append("checkIn", searchParams.checkIn || "");
+  queryParams.append("checkOut", searchParams.checkOut || "");
+  queryParams.append("adultCount", searchParams.adultCount || "");
+  queryParams.append("childCount", searchParams.childCount || "");
+  queryParams.append("page", searchParams.page || "");
+  queryParams.append("maxPrice", searchParams.maxPrice || "");
+  queryParams.append("sortOption", searchParams.sortOption || "");
+
+  searchParams.facilities?.forEach((facility) =>
+    queryParams.append("facilities", facility)
+  );
+  searchParams.types?.forEach((type) => queryParams.append("types", type));
+  searchParams.stars?.forEach((star) => queryParams.append("stars", star));
+
+  const response = await fetch(`${BASE_URL}/api/hotels/search?${queryParams}`, {
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("Error while hotel search");
+  }
+
+  return response.json();
+};
+
+export const fetchHotelDetailById = async (hotelId: string):Promise<HotelType> => {
+  const response = await fetch(`${BASE_URL}/api/hotels/${hotelId}`, {
+    credentials: "include",
+    method: "GET",
+  });
+
+  if (!response.ok) {
+    throw new Error("Error while getting hotel details");
+  }
+
+  return response.json();
+};

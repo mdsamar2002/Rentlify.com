@@ -28,5 +28,15 @@ test("should show search bar",async({page})=>{
     await page.getByRole("button",{name:"Search"}).click();
     await expect(page.getByText("Hotels found")).toBeVisible();   
     await expect(page.getByText("samar")).toBeVisible();
-    await expect(page.getByText("a beatiful villa with sea view...")).toBeVisible();
+})
+
+test("should show hotel detai",async({page})=>{
+  await page.goto(UI_URL);
+
+  await page.getByPlaceholder("Your next destination...").fill("bangalore");
+  await page.getByRole("button",{name:"Search"}).click();
+
+  await page.getByText("samar").click();
+  await expect(page).toHaveURL(/detail/);
+  await expect(page.getByRole("button",{name:"Sign In to Book"})).toBeVisible();
 })

@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import { HotelType } from "../../../server/src/typeShared/type.js";
 import { AiFillStar } from "react-icons/ai";
+import { BiSolidLocationPlus } from "react-icons/bi";
 type Props = {
   hotel: HotelType;
 };
@@ -15,7 +16,13 @@ const SearchResultsCard = ({ hotel }: Props) => {
         />
       </div>
       <div className="grid grid-rows-[1fr_2fr_1fr]">
-        <div>
+        <div className="space-y-1">
+          <Link
+            to={`/detail/${hotel._id}`}
+            className="text-2xl font-bold cursor-pointer text-slate-700"
+          >
+            {hotel.name}
+          </Link>
           <div className="flex items-center">
             <span className="flex">
               {Array.from({ length: hotel.starRating }).map(() => (
@@ -24,12 +31,10 @@ const SearchResultsCard = ({ hotel }: Props) => {
             </span>
             <span className="ml-1 text-sm">{hotel.type}</span>
           </div>
-          <Link
-            to={`/detail/${hotel._id}`}
-            className="text-2xl font-bold cursor-pointer"
-          >
-            {hotel.name}
-          </Link>
+          <div className="flex gap-2 items-center font-semibold">
+            <BiSolidLocationPlus className="text-red-500" />
+            {hotel.city},{hotel.country}
+          </div>
         </div>
 
         <div>
