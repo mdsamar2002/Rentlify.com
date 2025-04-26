@@ -8,7 +8,7 @@ const MaxPriceTypeFilter = ({ selectedMaxPriceTypes, onChange }: Props) => {
     <div className="border-b border-slate-300 pb-5">
       <h4 className="text-md font-semibold mb-2">Maximum Price</h4>
       <select
-        className="p-2 border rounded-md w-full"
+        className="p-2 border rounded-md md:w-full w-fit"
         value={selectedMaxPriceTypes}
         onChange={(event) =>
           onChange(

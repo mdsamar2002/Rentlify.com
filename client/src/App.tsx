@@ -9,6 +9,11 @@ import MyHotels from "./pages/MyHotels";
 import EditHotel from "./pages/EditHotel";
 import Search from "./pages/Search";
 import HotelDetails from "./pages/HotelDetails";
+import Booking from "./pages/Booking";
+import MyBookings from "./pages/MyBooking";
+import Home from "./pages/Home";
+import TermsAndConditions from "./components/TermsAndConditions";
+import PrivacyAndPolicy from "./components/PrivacyAndPolicy";
 function App() {
   const { isLoggedIn } = useAppContext();
   return (
@@ -19,7 +24,7 @@ function App() {
           path="/"
           element={
             <Layout>
-              <p>Hotel Home page</p>
+              <Home/>
             </Layout>
           }
         />
@@ -55,6 +60,22 @@ function App() {
             </Layout>
           }
         />
+        <Route
+          path="/terms&condition"
+          element={
+            <Layout>
+              <TermsAndConditions />
+            </Layout>
+          }
+        />
+        <Route
+          path="/privacy&policy"
+          element={
+            <Layout>
+              <PrivacyAndPolicy />
+            </Layout>
+          }
+        />
        {isLoggedIn && (
           <>
             <Route
@@ -78,6 +99,22 @@ function App() {
               element={
                 <Layout>
                   <EditHotel />
+                </Layout>
+              }
+            />
+             <Route
+              path="/hotel/:hotelId/booking"
+              element={
+                <Layout>
+                  <Booking />
+                </Layout>
+              }
+            />
+            <Route
+              path="/my-bookings"
+              element={
+                <Layout>
+                  <MyBookings />
                 </Layout>
               }
             />
