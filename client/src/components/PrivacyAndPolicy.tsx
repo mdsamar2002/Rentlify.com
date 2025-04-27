@@ -1,6 +1,6 @@
 const PrivacyAndPolicy = () => {
   return (
-    <div className="space-y-5">
+    <div className="container mx-auto space-y-5 mt-5 mb-5">
       <h1 className="font-bold text-xl">Privacy Policy</h1>
       <div>
         At Rentlify, we are committed to protecting your personal information

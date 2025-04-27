@@ -1,7 +1,7 @@
 
 const TermsAndConditions = () => {
   return (
-    <div className="space-y-5">
+    <div className="container mx-auto space-y-5 mt-5 mb-5">
       <h1 className="font-bold text-xl">Terms and Conditions - Rentlify</h1>
       <div>
         1. Use of the Platform Rentlify is intended solely for hotel listings

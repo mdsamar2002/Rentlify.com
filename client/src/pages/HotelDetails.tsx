@@ -17,7 +17,7 @@ const HotelDetails = () => {
   }
   console.log(hotelDetail);
   return (
-    <div className="space-y-6">
+    <div className="container mx-auto mt-6 mb-6 space-y-6">
       <div className="space-y-2">
         <span className="flex">
           {Array.from({ length: hotelDetail.starRating }).map<React.ReactNode>(

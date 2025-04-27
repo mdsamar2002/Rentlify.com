@@ -8,14 +8,20 @@ import { useAppContext } from "./contexts/AppContext";
 import MyHotels from "./pages/MyHotels";
 import EditHotel from "./pages/EditHotel";
 import Search from "./pages/Search";
-import HotelDetails from "./pages/HotelDetails";
 import Booking from "./pages/Booking";
 import MyBookings from "./pages/MyBooking";
-import Home from "./pages/Home";
 import TermsAndConditions from "./components/TermsAndConditions";
 import PrivacyAndPolicy from "./components/PrivacyAndPolicy";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import Hero from "./components/Hero";
+import { Suspense, lazy } from "react";
+const Home = lazy(() => import("./pages/Home"));
+const HotelDetails = lazy(() => import("./pages/HotelDetails"));
+
 function App() {
   const { isLoggedIn } = useAppContext();
+
   return (
     <>
       <Routes>
@@ -23,9 +29,13 @@ function App() {
         <Route
           path="/"
           element={
-            <Layout>
-              <Home/>
-            </Layout>
+            <>
+              <Layout>
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Home />
+                </Suspense>
+              </Layout>
+            </>
           }
         />
         <Route
@@ -55,35 +65,49 @@ function App() {
         <Route
           path="/detail/:hotelId"
           element={
-            <Layout>
-              <HotelDetails />
-            </Layout>
+            <>
+              <Header />
+              <Hero />
+              <Suspense fallback={<div>Loading...</div>}>
+                <HotelDetails />
+              </Suspense>
+              <Footer />
+            </>
           }
         />
         <Route
           path="/terms&condition"
           element={
-            <Layout>
+            <>
+              <Header />
+              <Hero />
               <TermsAndConditions />
-            </Layout>
+              <Footer />
+            </>
           }
         />
         <Route
           path="/privacy&policy"
           element={
-            <Layout>
+            <>
+              <Header />
+              <Hero />
               <PrivacyAndPolicy />
-            </Layout>
+              <Footer />
+            </>
           }
         />
-       {isLoggedIn && (
+        {isLoggedIn && (
           <>
             <Route
               path="/add-hotel"
               element={
-                <Layout>
+                <>
+                  <Header />
+                  <Hero />
                   <AddHotel />
-                </Layout>
+                  <Footer />
+                </>
               }
             />
             <Route
@@ -97,12 +121,15 @@ function App() {
             <Route
               path="/edit-hotel/:hotelId"
               element={
-                <Layout>
+                <>
+                  <Header />
+                  <Hero />
                   <EditHotel />
-                </Layout>
+                  <Footer />
+                </>
               }
             />
-             <Route
+            <Route
               path="/hotel/:hotelId/booking"
               element={
                 <Layout>
